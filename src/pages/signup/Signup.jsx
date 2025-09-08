@@ -23,9 +23,21 @@ const Signup = () => {
     initialValues: initialValues,
     validationSchema: SignupValidation,
     onSubmit: (values) => {
-       
+
       const existingUsers = JSON.parse(localStorage.getItem("signupData")) || [];
 
+      // checking the user before storing it in the signupData
+      const checkUser = existingUsers.some((obj) => {
+        return obj.email === values.email;
+      })
+      
+      
+      if (checkUser) {
+        toast.error("User Already Exists");
+        return;
+      }
+
+          
       const newUser = {
         ...values,
         id: Math.round(Math.random() * 1000),
@@ -33,14 +45,16 @@ const Signup = () => {
       console.log(newUser);
 
 
+
       existingUsers.push(newUser);
 
 
       localStorage.setItem("signupData", JSON.stringify(existingUsers));
 
-      localStorage.setItem("uniqueUser",JSON.stringify(newUser));
+      localStorage.setItem("uniqueUser", JSON.stringify(newUser));
       console.log(newUser);
-      
+ 
+
 
       toast.success("Signup successful");
       // alert("Signup successful!");

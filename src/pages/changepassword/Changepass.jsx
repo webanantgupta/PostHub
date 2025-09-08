@@ -5,6 +5,7 @@ import { MdOutlineWifiPassword } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { ChangepassValidation } from "./ChangepassValidation";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Changepass = () => {
 
@@ -15,7 +16,7 @@ const Changepass = () => {
     }
 
 
-
+const navigate = useNavigate();
 
 
 
@@ -25,6 +26,8 @@ const Changepass = () => {
         onSubmit: (values) => {
             console.log(values);
 
+
+            // here we are getting both the data of uniqueUser and signupData from localstorage
             const ans = JSON.parse(localStorage.getItem("uniqueUser"));
             // console.log(ans);
             const signupUser = JSON.parse(localStorage.getItem("signupData")) || [];
@@ -32,9 +35,7 @@ const Changepass = () => {
 
         //now we have to update the signupData and uniqueUser in our localstorage
 
-            if (ans.password === values.password) {
-             toast.success("password matched!")
-            }
+      
 
             //now updating the data in uniqueUser
             // uniqueUser.password = values.npassword;
@@ -49,10 +50,14 @@ const Changepass = () => {
                 if(obj.id === ans.id){
                    return {...obj, password:values.cnpassword}
                 }
+                return obj;
             })
              localStorage.setItem("signupData", JSON.stringify(newsignupData));
              console.log("updated signupData" , newsignupData);
-             
+             toast.success("Password Change Successfully");
+             setTimeout(()=>{
+            navigate("/");
+             },[2000]);
 
         }
     });

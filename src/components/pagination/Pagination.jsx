@@ -25,7 +25,7 @@ const Pagination = ({ posts, page, setPage }) => {
                 })
             }
             <span
-            className={page < Math.ceil(posts.length / 10) ? "" : "button_disable"}
+            className={page < Math.round(posts.length / 10) ? "" : "button_disable"}
                 onClick={() => selectPageHandler(page + 1)}
             ><GiFastForwardButton /></span>
         </div>
