@@ -16,6 +16,7 @@ const AppRoutes = ({posts, page, setPage}) => {
        <BrowserRouter>
        <Toaster position="top-center"/>
       <Routes>
+        
         <Route path='/' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path="/profile" element={<Profile/>}/>
